@@ -1,0 +1,13 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+version: '3.8'
+services:
+  songs-app:
+    image: song-service
+    environment:
+      #SPRING_PROFILES_ACTIVE: dev
+      JAVA_OPTIONS: -Xmx512m -Xms256m
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql8-songs:3306/songs?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      MYSQL_HOST: mysql8-songs
+      MYSQL_PORT: 3306
+    ports:
+      - 127.0.0.1:8081:8080

@@ -1,0 +1,11 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:${HOME}/works/ext/microservices-fundamentals-config

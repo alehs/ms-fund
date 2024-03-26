@@ -1,0 +1,10 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+version: '3.8'
+services:
+  eureka-service:
+    image: eureka-service
+    environment:
+      #SPRING_PROFILES_ACTIVE: dev
+      JAVA_OPTIONS: -Xmx512m -Xms256m
+    ports:
+      - 127.0.0.1:8761:8761

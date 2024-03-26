@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  mysql8-songs:
+    image: mysql:latest
+    volumes:
+      - ./config/mysql:/etc/mysql/conf.d
+    environment:
+      MYSQL_DATABASE: songs
+      TZ: Etc/UTC
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_AUTH_PLUGIN: caching_sha2_password
+      MYSQL_USER_HOST: '%' # allow all hosts
+    ports:
+      - 127.0.0.1:3307:3306
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+
+

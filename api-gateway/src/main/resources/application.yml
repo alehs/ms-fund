@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:${CONFIG_SERVICE_URI:http://localhost:9000}
+    activate:
+      on-profile:
+        - default
+        - local

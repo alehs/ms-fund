@@ -1,0 +1,2 @@
+INSERT IGNORE INTO storage_object (id, type, bucket, path) VALUES (1, 'STAGING', 'staging-bucket', 'staging/');
+INSERT IGNORE INTO storage_object (id, type, bucket, path) VALUES (2, 'PERMANENT', 'permanent-bucket', 'permanent/');

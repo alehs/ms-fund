@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
+
+logging:
+  level:
+    org.springframework.security: trace
+
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay=
+      routes:
+        - id: resourceServiceModule
+          uri: lb://RESOURCE-SERVICE
+          predicates:
+            - Path=/api/resources/**
+
+        - id: songServiceModule
+          uri: lb://SONG-SERVICE
+          predicates:
+            - Path=/api/songs/**
+
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://auth-server:9100/oauth2/introspect
+          client-id: resources-client
+          client-secret: secret
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://auth-server:9100
+#      client:
+#        registration:
+#          resources-client-oidc:
+#            provider: spring
+#            client-id: resources-client
+#            client-secret: secret
+##            authorization-grant-type: authorization_code
+##            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+#            scope:
+#              - openid
+#              - resources.read
+#            client-name: resources-client-oidc
+##          resources-client-authorization-code:
+##            provider: spring
+##            client-id: resources-client
+##            client-secret: secret
+##            authorization-grant-type: authorization_code
+##            redirect-uri: "http://127.0.0.1:8080/authorized"
+##            scope: resources.read
+##            client-name: resources-client-authorization-code
+#        provider:
+#          spring:
+#            issuer-uri: http://auth-server:9100

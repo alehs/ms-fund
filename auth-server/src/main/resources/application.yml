@@ -1,0 +1,48 @@
+server:
+  port: 9100
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: TRACE
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
+
+spring:
+  application:
+    name: auth-server
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://auth-server:9100
+        client:
+          resources-client:
+            registration:
+              client-id: resources-client
+              client-secret: "{noop}secret"
+              client-name: Resources Client
+              client-authentication-methods:
+                - client_secret_basic
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+              redirect-uris:
+                - http://127.0.0.1:8080/login/oauth2/code/resources-client-oidc
+                - http://localhost:8080/login/oauth2/code/resources-client-oidc
+                - http://127.0.0.1:8080/authorized
+              scopes:
+                - openid
+                - resources.read
+        resources-client-authorised:
+          registration:
+            resources-client-authorization-code:
+              client-id: resources-client-authorization-code
+              client-secret: "{noop}secret"
+              client-authentication-methods:
+                - client_secret_basic
+              authorization-grant-types:
+                - client_credentials
+              scopes:
+                - resources.read
+                - resources.write
+
